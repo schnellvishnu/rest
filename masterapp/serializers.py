@@ -11,17 +11,19 @@ class CustomersSerializer(serializers.ModelSerializer):
         model =Customers
         fields =["id","name","company_prefix","company_gln","address","zip","created_by"]
 class LocationSerializer(serializers.ModelSerializer):
-    # customer_id = CustomersSerializer()
-    customer_id = serializers.SlugRelatedField(slug_field='name',read_only=True)
+    
+
+    customer_id = serializers.SlugRelatedField(slug_field='name',read_only=True,)
+   
 
     class Meta:
         model =Locations
-        fields = ['id','name','customer_id','address','zip','state','loc_gln','created_by']
+        fields = ['id','name','customer_id','loc_gln','created_by',"address","zip","state"]
 class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = ["id","name","gtin_number","imn","description","created_by"]
+        fields = ["id","name","gtin_number","imn","description","created_by",'customer_id']
 class ShipPOSerializer(serializers.ModelSerializer):
     
     class Meta:

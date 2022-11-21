@@ -17,6 +17,7 @@ class RegisterSystemsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 #----------------------------------------------------------------------
 class TaskSerializer(serializers.ModelSerializer):
+    updated_by = serializers.SlugRelatedField(slug_field='email',read_only=True,)
     class Meta:
         model =Task
         fields = "__all__"

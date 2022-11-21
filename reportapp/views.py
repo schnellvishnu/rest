@@ -17,13 +17,17 @@ class ProductionOrderReport(APIView):
 
 class ProductionOrderReportIndividual(APIView):
     def get(self, request, id):
-        try:
-            detailsObj = ProductionReport.objects.get(batch_number=id)
-        except:
-            return Response("Not found in databse")
+        detailsObj = ProductionReport.objects.all().filter(batch_number=id)
+        serializeObj = ProductionReportSerializer(detailsObj, many=True)
+        return Response(serializeObj.data)
+    #     try:
+    #         detailsObj = ProductionReport.objects.get(batch_number=id)
+    #     except:
+    #         return Response("Not found in database")
 
-        serializeObj = ProductionReportSerializer(detailsObj, data=request.data)
-        if (serializeObj.is_valid()):
-            return Response(serializeObj.data)
+    #     serializeObj = ProductionReportSerializer(detailsObj, data=request.data)
+    #     if (serializeObj.is_valid()):
+    #         return Response(serializeObj.data)
 
-        return Response(serializeObj.errors)
+    #     return Response(serializeObj.errors)
+  
